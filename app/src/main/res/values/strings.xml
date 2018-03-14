@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Bangna_queue</string>
+
+    <string name="btnMPlus">เพิ่ม queue</string>
+    <string name="btnMMinus">ลบ queue</string>
+    <string name="btnMSetup">กำหนดค่า</string>
+
+    <string name="lbPStaff">เลือกแพทย์</string>
+    <string name="lbPQLast">queue ปัจจุบัน</string>
+    <string name="lbPQPlus">เพิ่ม queue</string>
+    <string name="btnPPlus">เพิ่ม queue</string>
+
+    <string name="lbMiStaff">เลือกแพทย์</string>
+    <string name="lbMiQCurrent">queue ปัจจุบัน</string>
+    <string name="lbMiStaff1">queue ปัจจุบัน</string>
+    <string name="btnMiMinus">ลบ queue</string>
+</resources>
