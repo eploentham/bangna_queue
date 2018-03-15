@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -21,6 +23,7 @@ import java.util.List;
 public class PlusActivity extends AppCompatActivity {
     JsonParser jsonparser = new JsonParser();
     String ab;
+    Boolean pageLoad = false;
     JSONArray jarrS;
 
     TextView lbPStaff, lbPQLast, lbPQPlus, lbPQCurrent1;
@@ -35,6 +38,7 @@ public class PlusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plus);
         qc = (QueueControl) getIntent().getSerializableExtra("QueueControl");
 
+        pageLoad = true;
         lbPQLast = findViewById(R.id.lbPQLast);
         lbPStaff = findViewById(R.id.lbPStaff);
         lbPQCurrent1 = findViewById(R.id.lbPQLast1);
@@ -49,6 +53,21 @@ public class PlusActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adaStaff = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,qc.sCboStaff);
         cboPStaff.setAdapter(adaStaff);
+
+        cboPStaff.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!pageLoad){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        pageLoad= false;
     }
     class retrieveStaff extends AsyncTask<String,String,String> {
 

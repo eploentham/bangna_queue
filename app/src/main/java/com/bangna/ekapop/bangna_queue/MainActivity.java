@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,8 +30,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    JsonParser jsonparser = new JsonParser();
+    JSONArray jarrS;
+
     TextView lbMMessage;
     Button btnMPlus, btnMMinus, btnMSetup;
+    ImageView imageStaff;
+
     QueueControl qc;
 
     String ab;
@@ -43,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btnMPlus = findViewById(R.id.btnMPlus);
         btnMSetup = findViewById(R.id.btnMSetup);
         lbMMessage = findViewById(R.id.lbMMessage);
+        imageStaff = findViewById(R.id.imageStaff);
 
         btnMMinus.setText(R.string.btnMMinus);
         btnMPlus.setText(R.string.btnMPlus);
@@ -113,16 +121,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    class retrieveArea extends AsyncTask<String,String,String> {
+    class retrieveStaff extends AsyncTask<String,String,String> {
 
         @Override
         protected String doInBackground(String... arg0) {
             //Log.d("Login attempt", jobj.toString());
 //            try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("userdb",rs.UserDB));
-            params.add(new BasicNameValuePair("passworddb",rs.PasswordDB));
-            jarrA = jsonparser.getJSONFromUrl(rs.hostGetArea,params);
+            params.add(new BasicNameValuePair("userdb",qc.UserDB));
+            params.add(new BasicNameValuePair("passworddb",qc.PasswordDB));
+            jarrS = jsonparser.getJSONFromUrl(qc.hostGetStaff,params);
 
 //            } catch (JSONException e) {
 //                // TODO Auto-generated catch block
@@ -133,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String ab){
             String aaa = ab;
-            setCboArea();
+            setCboStaff();
         }
         @Override
         protected void onPreExecute() {
@@ -141,23 +149,23 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    private void setCboArea(){
-        if(jarrA!=null){
-            rs.sCboArea.clear();
-            rs.sArea.clear();
+    private void setCboStaff(){
+        if(jarrS!=null){
+            qc.sCboStaff.clear();
+            qc.sStaff.clear();
             //JSONArray categories = jobj.getJSONArray("area");
             //JSONArray json = new JSONArray(jobj);
             try {
-                for (int i = 0; i < jarrA.length(); i++) {
-                    JSONObject catObj = (JSONObject) jarrA.get(i);
-                    rs.sCboArea.add(catObj.getString(ar.dbName));
-                    rs.sArea.add(catObj.getString(ar.dbID)+"@"+catObj.getString(ar.dbCode)+"@"+catObj.getString(ar.dbName));
+                for (int i = 0; i < jarrS.length(); i++) {
+                    JSONObject catObj = (JSONObject) jarrS.get(i);
+                    qc.sCboStaff.add(catObj.getString(qc.sf.dbNameT));
+                    qc.sStaff.add(catObj.getString(qc.sf.dbID)+"@"+catObj.getString(qc.sf.dbCode)+"@"+catObj.getString(qc.sf.dbNameT));
                 }
-                imageArea.setImageResource(R.drawable.green1);
+                imageStaff.setImageResource(R.drawable.green);
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                Log.e("setCboArea ",e.getMessage());
+                Log.e("setCboStaff ",e.getMessage());
             }
         }
     }
@@ -199,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String ab) {
 //            chk=true;
             if (chk) {
-                new retrieveArea().execute();
+                new retrieveStaff().execute();
 
             } else {
                 lbMMessage.setVisibility(View.VISIBLE);

@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\source\bangna\bangna_queue\app\app.iml" filepath="C:\source\bangna\bangna_queue\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bangna_queue.iml" filepath="$PROJECT_DIR$/bangna_queue.iml" />
+      <module fileurl="file://C:\source\bangna\bangna_queue\bangna_queue.iml" filepath="C:\source\bangna\bangna_queue\bangna_queue.iml" />
     </modules>
   </component>
 </project>
