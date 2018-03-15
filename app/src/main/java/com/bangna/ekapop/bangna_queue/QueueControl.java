@@ -30,6 +30,9 @@ public class QueueControl extends Application implements Serializable {
     public String hostIP="192.168.0.203", hostWebDirectory ="bangna_queue/web/", hostPORT="80", UserDB="root", PasswordDB ="Ekartc2c5",TextSize="",PrnO="",PrnB="",PrnC="";
 
     public String hostGetStaff ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getStaff.php";
+    public String hostGetDoctor ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getDoctor.php";
+    public String hostGetDoctorQueueLast ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getDoctorQueueLast.php";
+    public String hostInsertQueue ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"QueueInsert.php";
 
     public Staff sf;
 
@@ -119,5 +122,19 @@ public class QueueControl extends Application implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    public String getStaff(String staffName, String flag){
+        String ab="";
+        for(int i=0;i<sStaff.size();i++){
+            String[] aa = sStaff.get(i).split("@");
+            if(staffName.equals(aa[2]+" "+aa[3])){
+                if(flag.equals("code")){
+                    ab = aa[1];
+                }else{
+                    ab = aa[0];
+                }
+            }
+        }
+        return ab;
     }
 }

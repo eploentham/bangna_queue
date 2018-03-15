@@ -111,7 +111,11 @@ public class MainActivity extends AppCompatActivity {
         btnMPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(view.getContext(), PlusActivity.class).putExtra("QueueControl",qc),0);
+//                startActivityForResult(new Intent(view.getContext(), PlusActivity.class).putExtra("QueueControl",qc),0);
+//
+                Intent s1 = new Intent(view.getContext(), PlusActivity.class);
+//                s1.putExtra("QueueControl",qc);
+                startActivityForResult(s1, 0);
             }
         });
         btnMMinus.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("userdb",qc.UserDB));
             params.add(new BasicNameValuePair("passworddb",qc.PasswordDB));
-            jarrS = jsonparser.getJSONFromUrl(qc.hostGetStaff,params);
+            jarrS = jsonparser.getJSONFromUrl(qc.hostGetDoctor,params);
 
 //            } catch (JSONException e) {
 //                // TODO Auto-generated catch block
@@ -158,11 +162,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 for (int i = 0; i < jarrS.length(); i++) {
                     JSONObject catObj = (JSONObject) jarrS.get(i);
-                    qc.sCboStaff.add(catObj.getString(qc.sf.dbNameT));
-                    qc.sStaff.add(catObj.getString(qc.sf.dbID)+"@"+catObj.getString(qc.sf.dbCode)+"@"+catObj.getString(qc.sf.dbNameT));
+                    qc.sCboStaff.add(catObj.getString(qc.sf.dbFNameT));
+                    qc.sStaff.add(catObj.getString(qc.sf.dbID)+"@"+catObj.getString(qc.sf.dbCode)+"@"+catObj.getString(qc.sf.dbFNameT));
                 }
                 imageStaff.setImageResource(R.drawable.green);
-            } catch (JSONException e) {
+            }catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 Log.e("setCboStaff ",e.getMessage());
