@@ -24,7 +24,7 @@ public class PlusActivity extends AppCompatActivity {
     JsonParser jsonparser = new JsonParser();
     String ab;
     Boolean pageLoad = false;
-    JSONArray jarrS, jarrQ;
+    JSONArray jarrS, jarrQ, jarrP;
 
     TextView lbPStaff, lbPQLast, lbPQPlus, lbPQCurrent1;
     Spinner cboPStaff;
@@ -89,8 +89,8 @@ public class PlusActivity extends AppCompatActivity {
             params.add(new BasicNameValuePair("userdb",qc.UserDB));
             params.add(new BasicNameValuePair("passworddb",qc.PasswordDB));
             params.add(new BasicNameValuePair("staff_id",arg0[0]));
-            params.add(new BasicNameValuePair("row_1",arg0[0]));
-            jarrQ = jsonparser.getJSONFromUrl(qc.hostGetDoctorQueueLast,params);
+            params.add(new BasicNameValuePair("row_1",arg0[1]));
+            jarrP = jsonparser.getJSONFromUrl(qc.hostInsertQueue,params);
 
 //            } catch (JSONException e) {
 //                // TODO Auto-generated catch block
@@ -101,12 +101,26 @@ public class PlusActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String ab){
             String aaa = ab;
-            setQueue();
+            printQueue();
         }
         @Override
         protected void onPreExecute() {
             String aaa = ab;
 
+        }
+    }
+    private void printQueue(){
+        if(jarrP!=null){
+            try {
+                for (int i = 0; i < jarrP.length(); i++) {
+                    JSONObject catObj = (JSONObject) jarrP.get(i);
+                    if(catObj.getString("success").equals("ok")){
+                        lbPQCurrent1.setText(catObj.getString("remark"));
+                    }
+                }
+            } catch (JSONException ex) {
+
+            }
         }
     }
     class retrieveDoctorQueueLast extends AsyncTask<String,String,String> {

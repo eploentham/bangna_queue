@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         btnMMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(view.getContext(), MinusActivity.class).putExtra("QueueControl",qc),0);
+                startActivityForResult(new Intent(view.getContext(), MinusActivity.class),0);
             }
         });
     }

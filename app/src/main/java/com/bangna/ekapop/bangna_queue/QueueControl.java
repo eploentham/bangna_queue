@@ -27,12 +27,14 @@ public class QueueControl extends Application implements Serializable {
 
     public ArrayList<String> sStaff = new ArrayList<String>();
 
-    public String hostIP="192.168.0.203", hostWebDirectory ="bangna_queue/web/", hostPORT="80", UserDB="root", PasswordDB ="Ekartc2c5",TextSize="",PrnO="",PrnB="",PrnC="";
+    public String hostIP="172.20.10.14", hostWebDirectory ="bangna_queue/web/", hostPORT="80", UserDB="root", PasswordDB ="",TextSize="",PrnO="",PrnB="",PrnC="";
 
     public String hostGetStaff ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getStaff.php";
     public String hostGetDoctor ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getDoctor.php";
     public String hostGetDoctorQueueLast ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getDoctorQueueLast.php";
+    public String hostGetDoctorQueueFirst ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getDoctorQueueFirst.php";
     public String hostInsertQueue ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"QueueInsert.php";
+    public String hostUpdateQueueFinish ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"QueueUpdateFinish.php";
 
     public Staff sf;
 
