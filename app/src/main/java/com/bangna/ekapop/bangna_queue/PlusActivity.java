@@ -1,6 +1,11 @@
 package com.bangna.ekapop.bangna_queue;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -17,8 +23,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public class PlusActivity extends AppCompatActivity {
     JsonParser jsonparser = new JsonParser();
@@ -26,10 +39,21 @@ public class PlusActivity extends AppCompatActivity {
     Boolean pageLoad = false;
     JSONArray jarrS, jarrQ, jarrP;
 
-    TextView lbPStaff, lbPQLast, lbPQPlus, lbPQCurrent1;
+    TextView lbPStaff, lbPQLast, lbPQOnhand, lbPQCurrent1,lbPQOnhand1;
     Spinner cboPStaff;
     Button btnPPlus;
     QueueControl qc;
+
+    BluetoothAdapter bluetoothAdapter;
+    BluetoothSocket socket;
+    BluetoothDevice bluetoothDevice;
+    OutputStream outputStream;
+    InputStream inputStream;
+    Thread workerThread;
+    byte[] readBuffer;
+    int readBufferPosition;
+    volatile boolean stopWorker;
+    String value = "";
 
     public ArrayList<String> sCboTable = new ArrayList<String>();
     @Override
@@ -43,12 +67,15 @@ public class PlusActivity extends AppCompatActivity {
         lbPQLast = findViewById(R.id.lbPQLast);
         lbPStaff = findViewById(R.id.lbPStaff);
         lbPQCurrent1 = findViewById(R.id.lbPQLast1);
+        lbPQOnhand = findViewById(R.id.lbPQOnhand);
+        lbPQOnhand1 = findViewById(R.id.lbPQOnhand1);
 
         cboPStaff = findViewById(R.id.cboPStaff);
         btnPPlus = findViewById(R.id.btnPPlus);
 
         lbPStaff.setText(R.string.lbPStaff);
         lbPQLast.setText(R.string.lbPQLast);
+        lbPQOnhand.setText(R.string.lbPQOnhand);
         //lbPQPlus.setText(R.string.lbPQPlus);
         btnPPlus.setText(R.string.btnPPlus);
 
@@ -116,6 +143,8 @@ public class PlusActivity extends AppCompatActivity {
                     JSONObject catObj = (JSONObject) jarrP.get(i);
                     if(catObj.getString("success").equals("ok")){
                         lbPQCurrent1.setText(catObj.getString("remark"));
+                        lbPQOnhand1.setText(catObj.getString("onhand"));
+
                     }
                 }
             } catch (JSONException ex) {
@@ -158,6 +187,8 @@ public class PlusActivity extends AppCompatActivity {
                 for (int i = 0; i < jarrQ.length(); i++) {
                     JSONObject catObj = (JSONObject) jarrQ.get(i);
                     lbPQCurrent1.setText(catObj.getString(qc.sf.dbRow1));
+                    lbPQOnhand1.setText(catObj.getString("onhand"));
+
                 }
             } catch (JSONException ex) {
 
@@ -203,8 +234,8 @@ public class PlusActivity extends AppCompatActivity {
             try {
                 for (int i = 0; i < jarrS.length(); i++) {
                     JSONObject catObj = (JSONObject) jarrS.get(i);
-                    qc.sCboStaff.add(catObj.getString(qc.sf.dbFNameT)+ " " + catObj.getString(qc.sf.dbLNameT));
-                    qc.sStaff.add(catObj.getString(qc.sf.dbID)+"@"+catObj.getString(qc.sf.dbCode)+"@"+catObj.getString(qc.sf.dbFNameT)+"@"+catObj.getString(qc.sf.dbLNameT));
+                    qc.sCboStaff.add(catObj.getString("prefix")+ " " + catObj.getString(qc.sf.dbFNameT)+ " " + catObj.getString(qc.sf.dbLNameT));
+                    qc.sStaff.add(catObj.getString(qc.sf.dbID)+"@"+catObj.getString(qc.sf.dbCode)+"@"+catObj.getString(qc.sf.dbFNameT)+"@"+catObj.getString(qc.sf.dbLNameT)+"@"+catObj.getString("prefix"));
                 }
                 ArrayAdapter<String> adaStaff = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,qc.sCboStaff);
                 pageLoad = true;
@@ -221,4 +252,5 @@ public class PlusActivity extends AppCompatActivity {
             }
         }
     }
+
 }

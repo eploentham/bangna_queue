@@ -27,7 +27,7 @@ public class QueueControl extends Application implements Serializable {
 
     public ArrayList<String> sStaff = new ArrayList<String>();
 
-    public String hostIP="172.20.10.14", hostWebDirectory ="bangna_queue/web/", hostPORT="80", UserDB="root", PasswordDB ="",TextSize="",PrnO="",PrnB="",PrnC="";
+    public String hostIP="192.168.0.203", hostWebDirectory ="bangna_queue/web/", hostPORT="80", UserDB="root", PasswordDB ="Ekartc2c5",TextSize="",PrnO="",PrnB="",PrnC="";
 
     public String hostGetStaff ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getStaff.php";
     public String hostGetDoctor ="http://"+hostIP+":"+hostPORT+"/"+ hostWebDirectory +"getDoctor.php";
@@ -129,7 +129,7 @@ public class QueueControl extends Application implements Serializable {
         String ab="";
         for(int i=0;i<sStaff.size();i++){
             String[] aa = sStaff.get(i).split("@");
-            if(staffName.equals(aa[2]+" "+aa[3])){
+            if(staffName.equals(aa[4]+" "+aa[2]+" "+aa[3])){
                 if(flag.equals("code")){
                     ab = aa[1];
                 }else{

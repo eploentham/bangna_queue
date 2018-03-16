@@ -6,7 +6,7 @@
     <string name="btnMSetup">กำหนดค่า</string>
 
     <string name="lbPStaff">เลือกแพทย์</string>
-    <string name="lbPQLast">queue ปัจจุบัน</string>
+    <string name="lbPQLast">queue ล่าสุด</string>
     <string name="lbPQPlus">เพิ่ม queue</string>
     <string name="btnPPlus">เพิ่ม queue</string>
 
@@ -14,4 +14,7 @@
     <string name="lbMiQCurrent">queue ปัจจุบัน</string>
     <string name="lbMiStaff1">queue ปัจจุบัน</string>
     <string name="btnMiMinus">ลบ queue</string>
+
+    <string name="lbMiQOnhand">ยังเหลือคิวอีก</string>
+    <string name="lbPQOnhand">จำนวนคิวทั้งหมด</string>
 </resources>

@@ -14,6 +14,7 @@ if ($result=mysqli_query($conn,$sql)){
 		//$arrCol = array();
 		$tmp = array();
 		$tmp["staff_id"] = $row["staff_id"];
+		$tmp["prefix"] = $row["prefix"];
 	    $tmp["staff_code"] = $row["staff_code"];
 	    $tmp["staff_fname_t"] = $row["staff_fname_t"];
 	    $tmp["staff_fname_e"] = $row["staff_fname_e"];
