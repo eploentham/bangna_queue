@@ -146,13 +146,11 @@ public class MinusActivity extends AppCompatActivity {
                         lbMiQCurrent1.setText(catObj.getString("row_1"));
                         lbMiQOnhand1.setText(catObj.getString("onhand"));
                         btnMiMinus.setEnabled(false);
-                        printSlip("Hello World");
+                        //printSlip("Hello World");
                     }
                 }
             } catch (JSONException ex) {
 
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
